@@ -69,14 +69,14 @@ function findBestTower(farmTowers) {
         let newAverage;
 
         if (thisTowerId in averageRssiValues) {
-            const count = averageRssiValues.towerId.count
-            const currAverage = averageRssiValues.towerId.average
-            newAverage = currAverage + (count / (count + 1)) * currAverage + tower.rssi / (count + 1)
-            averageRssiValues.towerId.count += 1
-            averageRssiValues.towerId.average = newAverage
+            const count = averageRssiValues[thisTowerId].count
+            const currAverage = averageRssiValues[thisTowerId].average
+            newAverage = (count / (count + 1)) * currAverage + tower.rssi / (count + 1)
+            averageRssiValues[thisTowerId].count += 1
+            averageRssiValues[thisTowerId].average = newAverage
         } else {
             newAverage = tower.rssi
-            averageRssiValues.towerId = {average: newAverage, count: 1}
+            averageRssiValues[thisTowerId] = {average: newAverage, count: 1}
         }
 
         if (newAverage > maxAverage) {
@@ -100,5 +100,8 @@ async function main() {
     console.log(`Tower with max average RSSI is: ${bestTower.towerId}, with an average of: ${bestTower.averageRssi}`)
 }
 
-
-main().then(() => console.log("Done!"))
+module.exports = {
+    getFarmTowers,
+    findBestTower,
+    main
+}
