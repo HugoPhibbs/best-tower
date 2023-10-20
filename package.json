@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "npx ts-node best-tower.ts"
+    "start": "npx ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",

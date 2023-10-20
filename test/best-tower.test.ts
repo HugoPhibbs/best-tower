@@ -1,4 +1,4 @@
-const {getFarmTowers, findBestTower} = require("./best-tower")
+const {getFarmTowers, findBestTower} = require("../src/best-tower")
 
 describe("Test getting farm towers", () => {
 
