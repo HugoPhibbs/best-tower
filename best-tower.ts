@@ -73,11 +73,11 @@ function findBestTower(farmTowers) {
             const currAverage = averageRssiValues.towerId.average
             newAverage = currAverage + (count / (count + 1)) * currAverage + tower.rssi / (count + 1)
             averageRssiValues.towerId.count += 1
+            averageRssiValues.towerId.average = newAverage
         } else {
             newAverage = tower.rssi
-            averageRssiValues.towerId.count = 1
+            averageRssiValues.towerId = {average: newAverage, count: 1}
         }
-        averageRssiValues.towerId.average = newAverage
 
         if (newAverage > maxAverage) {
             maxAverage = newAverage
@@ -99,5 +99,6 @@ async function main() {
     const bestTower = findBestTower(farmTowers)
     console.log(`Tower with max average RSSI is: ${bestTower.towerId}, with an average of: ${bestTower.averageRssi}`)
 }
+
 
 main().then(() => console.log("Done!"))
