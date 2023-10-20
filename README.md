@@ -1,4 +1,5 @@
 # Best Tower
+![Node Build](https://github.com/HugoPhibbs/best-tower/actions/workflows/node.js.yml/badge.svg)
 Finds the best tower for a given farm according to tower's average RSSI value
 
 ## Usage
