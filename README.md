@@ -3,8 +3,8 @@
 ![Node Build](https://github.com/HugoPhibbs/best-tower/actions/workflows/node.js.yml/badge.svg)
 
 *By Hugo Phibbs* 
-    
-* Finds the best tower for a given farm according to tower's average RSSI value
+
+Finds the best tower for a given farm according to tower's average RSSI value
 
 ## Usage
 * First make sure that you have Node and NPM installed.
