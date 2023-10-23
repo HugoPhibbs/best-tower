@@ -43,7 +43,9 @@ async function getFarmTowers(farmId) {
         } catch (error) {
             const errorResponse = error.response
             if (errorResponse && errorResponse.status === 403) {
-                console.log("Forbidden 403")
+                console.log(
+                    `Received a 403 Forbidden error for the API link '${link}', skipping to the next link...`
+                )
             } else {
                 console.log(error)
             }
@@ -57,9 +59,13 @@ async function getFarmTowers(farmId) {
  * Finds the best tower from a list of towers, according to the best average RSSI (Received Signal Strength Indication)
  *
  * @param farmTowers list of towers, format {towerId: string, rssi: number}
- * @return the best tower, format {towerId: string, averageRssi: number}
+ * @return the best tower, format {towerId: string, averageRssi: number}. If the length of farmTowers is zero, it returns {towerId: undefined, averageRssi: Number.NEGATIVE_INFINITY}
  */
 function findBestTower(farmTowers) {
+    if (farmTowers.length == 0) {
+        return {towerId: undefined, averageRssi: Number.NEGATIVE_INFINITY}
+    }
+
     let averageRssiValues: { [key: string]: { average: number, count: number } } = {}
     let maxAverage = Number.NEGATIVE_INFINITY
     let bestTowerId: string
@@ -71,7 +77,7 @@ function findBestTower(farmTowers) {
         if (thisTowerId in averageRssiValues) {
             const count = averageRssiValues[thisTowerId].count
             const currAverage = averageRssiValues[thisTowerId].average
-            newAverage = (count / (count + 1)) * currAverage + tower.rssi / (count + 1)
+            newAverage = (count / (count + 1)) * currAverage + tower.rssi / (count + 1) // Find the new average incrementally, no need to store total sum
             averageRssiValues[thisTowerId].count += 1
             averageRssiValues[thisTowerId].average = newAverage
         } else {
@@ -94,10 +100,11 @@ function findBestTower(farmTowers) {
  * Coordinates the other functions together to parse input from a user,get raw data from the API end points and then find the best tower for a given farm
  */
 async function main() {
+    console.log("Starting the program...\n")
     const farmId = getFarmIdArg()
     const farmTowers = await getFarmTowers(farmId)
     const bestTower = findBestTower(farmTowers)
-    console.log(`Tower with max average RSSI is: ${bestTower.towerId}, with an average of: ${bestTower.averageRssi}`)
+    console.log(`\nTower with max average RSSI is: ${bestTower.towerId}, with an average of: ${bestTower.averageRssi}`)
 }
 
 module.exports = {
