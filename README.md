@@ -4,7 +4,7 @@
 
 *By Hugo Phibbs* 
 
-Finds the best tower for a given farm according to tower's average RSSI value
+Finds the tower with the highest average RSSI value (Return Strength Signal Indication) for a given farm.
 
 ## Usage
 * First make sure that you have Node and NPM installed.
@@ -15,11 +15,12 @@ npm install
 * You can run with:
 ```shell
 npm run start <farm-id>
+# For example 'npm run start farm_1' finds the best tower for a farm of id 'farm_1'
 ```
-* Results should then be printed out
+* Results will then be printed out
 
 ### Tests
 * To run the tests run:
 ```shell
-npm run test
+npm test
 ```
