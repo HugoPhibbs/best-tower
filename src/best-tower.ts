@@ -16,6 +16,9 @@ function getFarmIdArg() {
 /**
  * Gets the list of towers for a particular farm
  *
+ * Does this by querying an endpoint containing a data stream of CSV files. Each CSV file contains data for a specific time frame
+ * farms, towers and their respective rssi values
+ *
  * @param farmId ID of a particular farm
  * @returns List of towers for a particular farm. Format of each object is {towerId: string, rssi: number}
  */
